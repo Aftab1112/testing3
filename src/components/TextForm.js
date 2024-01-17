@@ -28,6 +28,7 @@ export default function TextForm(props) {
       var text = document.getElementById("myBox")
       text.select()
       navigator.clipboard.writeText(text.value)
+      document.getSelection().removeAllRanges()
       props.showAlert("Copied To Clipboard","success")
     }
 
@@ -44,22 +45,22 @@ export default function TextForm(props) {
 <div className="mb-3" style={{backgroundColor:props.mode==="dark"?"#042743":"white"}}>
   <h1>{props.heading}</h1>
 
-  <textarea className="form-control" placeholder = "Enter you text here" value={text}id="myBox" onChange={handleOnChange} style={{backgroundColor:props.mode==="dark"?"grey":"white",color:props.mode==="dark"?"white":"black"}}rows="8"></textarea>
+  <textarea className="form-control" placeholder = "Enter you text here" value={text}id="myBox" onChange={handleOnChange} style={{backgroundColor:props.mode==="dark"?"rgb(44, 47, 51)":"white",color:props.mode==="dark"?"white":"black"}}rows="8"></textarea>
 
 </div>
-<button className="btn btn-primary mx-2 my-2" onClick={handleUpClick} >Convert to uppercase</button>
-<button className="btn btn-primary mx-2 my-2" onClick={handleLoClick} >Convert to lowercase</button>
-<button className="btn btn-primary mx-2 my-2" onClick={handleClearClick} >Clear Text</button>
-<button className="btn btn-primary mx-2 my-2" onClick={handleCopy} >Copy Text</button>
+<button disabled={text.length===0} className="btn btn-primary mx-2 my-2" onClick={handleUpClick} >Convert to uppercase</button>
+<button disabled={text.length===0} className="btn btn-primary mx-2 my-2" onClick={handleLoClick} >Convert to lowercase</button>
+<button disabled={text.length===0} className="btn btn-primary mx-2 my-2" onClick={handleClearClick} >Clear Text</button>
+<button disabled={text.length===0} className="btn btn-primary mx-2 my-2" onClick={handleCopy} >Copy Text</button>
     </div>
     <div className="container my-4"style={{color:props.mode==="dark"?"white":"#042743"}} >
         <h2>Your text summary</h2>
-        <p>{text.split(" ").length} words and {text.length} characters</p>
-        <p>{0.008 * text.split(" ").length} minutes to read it</p>
+        <p>{text.split(" ").filter((element)=>{return element.length!==0}).length} words and {text.length} characters</p>
+        <p>{0.008 * text.split(" ").filter((element)=>{return element.length!==0}).length} minutes to read it</p>
     </div>
     <hr />
     <h2 className='mx-2' style={{color:props.mode==="dark"?"white":"black"}}>Preview</h2 >
-    <p className='mx-2' style={{color:props.mode==="dark"?"white":"black"}}>{text.length>0?text:"Write Something in textbox to preview it here. "}</p>
+    <p className='mx-2' style={{color:props.mode==="dark"?"white":"black"}}>{text.length>0?text:"Nothing to preview. "}</p>
     </>
   )
 }
