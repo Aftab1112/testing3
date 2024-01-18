@@ -3,6 +3,7 @@ import Alert from './components/Alert';
 import About from './components/About';
 import Navbar from './components/Navbar';
 import TextForm from './components/TextForm';
+import { HashRouter as Router } from 'react-router-dom';
 import React,{useState} from 'react'
 import {
   BrowserRouter as Router,
